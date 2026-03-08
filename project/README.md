@@ -68,7 +68,7 @@ derived from this value.
 version: 1.4.2
 ```
 
-### `category` (required)
+### `category`
 
 Project classification. Accepts a single value or a list.
 
@@ -200,7 +200,7 @@ Orgs can namespace their domain under a key:
 
 ```yaml
 metadata:
-  ftpm:
+  acme:
     kind: component
     safety-level: QM
     parent: com.company.dash-product

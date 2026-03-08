@@ -4,7 +4,7 @@
   "title": "Project Manifest",
   "description": "A minimal, flat project manifest describing what the project is and where it lives.",
   "type": "object",
-  "required": ["name", "version", "category"],
+  "required": ["name", "version"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -15,7 +15,7 @@
       "type": "string",
       "pattern": "^[a-z][a-z0-9.-]*$",
       "description": "Reverse-domain project identifier. Globally unique, used as the canonical name across all ecosystems.",
-      "examples": ["com.company.dash", "io.driftsys.folio"]
+      "examples": ["com.company.dash", "io.driftsys.myapp"]
     },
     "version": {
       "type": "string",
