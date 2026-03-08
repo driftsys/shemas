@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/project/v1.json",
+  "title": "Project Manifest",
+  "description": "A minimal, flat project manifest describing what the project is and where it lives.",
+  "type": "object",
+  "required": ["name", "version", "category"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Schema URL for editor autocompletion and validation. Not part of the project data."
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9.-]*$",
+      "description": "Reverse-domain project identifier. Globally unique, used as the canonical name across all ecosystems.",
+      "examples": ["com.company.dash", "io.driftsys.folio"]
+    },
+    "version": {
+      "type": "string",
+      "description": "Canonical version. Single source of truth — all ecosystem version files are derived from this value.",
+      "examples": ["1.4.2", "0.1.0", "2026.03.1"]
+    },
+    "category": {
+      "description": "Project classification. Accepts a single value or a list.",
+      "oneOf": [
+        { "$ref": "#/$defs/categoryValue" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/$defs/categoryValue" },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line summary of the project."
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license expression. Supports dual licensing (e.g., 'MIT OR Apache-2.0').",
+      "examples": ["Apache-2.0", "MIT", "MIT OR Apache-2.0"]
+    },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Discovery tags."
+    },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Project authors in 'Name <email>' format.",
+      "examples": [["Core Platform Team <core-platform@company.com>"]]
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "Project website or documentation portal URL."
+    },
+    "bugs": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issue tracker URL."
+    },
+    "repository": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source repository URL."
+    },
+    "upstream": {
+      "type": "string",
+      "description": "Upstream repository URL for forks. Append #branch to track a specific branch (default: main).",
+      "examples": [
+        "https://github.com/nicegui/nicegui",
+        "https://github.com/nicegui/nicegui#develop"
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Freeform key-value block for org-specific information. The standard never validates contents.",
+      "additionalProperties": true
+    },
+    "config": {
+      "type": "object",
+      "description": "Freeform key-value block for tooling configuration. Tools namespace themselves as keys.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "categoryValue": {
+      "type": "string",
+      "enum": [
+        "manifest",
+        "specification",
+        "application",
+        "service",
+        "library",
+        "tool",
+        "binary",
+        "distribution",
+        "configuration"
+      ],
+      "description": "Project category."
+    }
+  }
+}

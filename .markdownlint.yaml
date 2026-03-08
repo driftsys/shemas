@@ -1,0 +1,117 @@
+# .markdownlint.yaml — strict rules, 80 columns
+#
+# Syntax: CommonMark + GFM + GLFM extensions
+#   - tables, task lists, strikethrough, autolinks
+#   - footnotes, front matter, math, mermaid
+#   - alerts / admonitions (> [!NOTE])
+#   - [[_TOC_]], collapsible sections
+#
+# Exceptions: tables, links, and code blocks are exempt from line length
+# because they cannot be wrapped without breaking syntax or readability.
+#
+# dprint handles prose wrapping; markdownlint catches what dprint cannot.
+
+# ── Line length ───────────────────────────────────────────────────────────
+MD013:
+  line_length: 80
+  heading_line_length: 80
+  code_block_line_length: 0         # no limit — code blocks are exempt
+  code_blocks: false                # skip code blocks entirely
+  tables: false                     # skip tables entirely
+  # Lines where the long segment is a URL inside a link are exempt.
+  # Bare URLs are caught by MD034 instead.
+
+# ── Headings ──────────────────────────────────────────────────────────────
+MD001: true                         # heading levels increment by one
+MD003:
+  style: atx                        # # ATX headings only, no underline
+MD022:
+  lines_above: 1                    # blank line before heading
+  lines_below: 1                    # blank line after heading
+MD023: true                         # headings must start at column 1
+MD024:
+  siblings_only: true               # allow duplicate headings across sections
+MD025:
+  level: 1                          # single top-level H1 per file
+  front_matter_title: "^\\s*title\\s*[:=]" # YAML front matter title counts as H1
+MD026:
+  punctuation: ".,;:!。，；：！"     # no trailing punctuation in headings
+
+# ── Lists ─────────────────────────────────────────────────────────────────
+MD004:
+  style: dash                       # - not * or + (dash everywhere)
+MD005: true                         # consistent list indentation
+MD007:
+  indent: 2                         # 2-space list indent
+MD029:
+  style: ordered                    # 1. 2. 3. (not 1. 1. 1.)
+MD030:
+  ul_single: 1                      # single space after list marker
+  ol_single: 1
+  ul_multi: 1
+  ol_multi: 1
+MD032: true                         # blank lines around lists
+# Task lists (GFM): - [ ] and - [x] are valid unordered list items.
+# No special config needed — MD004 dash style applies, checkboxes are content.
+
+# ── Whitespace ────────────────────────────────────────────────────────────
+MD009:
+  br_spaces: 0                     # no trailing spaces (use \ for breaks)
+MD010:
+  code_blocks: false                # allow tabs in code blocks only
+MD012:
+  maximum: 1                        # no consecutive blank lines
+MD047: true                         # file ends with a single newline
+
+# ── Code ──────────────────────────────────────────────────────────────────
+MD031: true                         # blank lines around fenced code blocks
+MD038: true                         # no spaces inside code spans
+MD040: true                         # fenced code blocks must have a language
+MD046:
+  style: fenced                     # fenced (```) only, no indented blocks
+MD048:
+  style: backtick                   # backtick fences, not tilde
+# GFM/GLFM: mermaid, math (```math), and other language-tagged blocks
+# are valid fenced blocks — no special handling needed.
+
+# ── Links & images ────────────────────────────────────────────────────────
+MD034: true                         # no bare URLs (wrap in <> or []())
+MD039: true                         # no spaces inside link text brackets
+MD042: true                         # no empty links
+# GFM autolinks (https://...) are caught by MD034 — wrap them.
+# GLFM footnotes [^1] are link-like but not flagged by these rules.
+
+# ── Inline formatting ────────────────────────────────────────────────────
+MD036: true                         # no emphasis used instead of a heading
+MD037: true                         # no spaces inside emphasis markers
+MD049:
+  style: asterisk                   # *italic* (- is for lists, * is for emphasis)
+MD050:
+  style: asterisk                   # **bold**
+# GFM strikethrough ~~text~~ — no markdownlint rule applies; accepted by default.
+
+# ── Structure ─────────────────────────────────────────────────────────────
+MD033:
+  allowed_elements:
+    # ── standard HTML ──
+    - br                            # explicit line break
+    - sup                           # footnote superscripts
+    - sub                           # subscripts
+    - kbd                           # keyboard shortcuts
+    # ── GFM / GLFM extensions ──
+    - details                       # collapsible sections
+    - summary                       # collapsible section title
+    - abbr                          # abbreviations (GLFM)
+    - dl                            # definition lists (GLFM)
+    - dt
+    - dd
+    - picture                       # responsive images
+    - source
+    - video                         # embedded media (GLFM)
+    - audio
+MD035:
+  style: ---                        # horizontal rule: --- not *** or ___
+MD041:
+  front_matter_title: "^\\s*title\\s*[:=]" # YAML front matter counts as title
+# Front matter (---/... delimiters) is handled by the parser, not a rule.
+# markdownlint-cli2 accepts front_matter_title to avoid false MD041 violations.

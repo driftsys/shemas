@@ -1,0 +1,11 @@
+#:schema https://driftsys.github.io/schemas/project/v1.json
+
+name = "io.driftsys.schemas"
+description = "JSON Schemas for Driftsys projects"
+category = "configuration"
+version = "0.1.0"
+license = "MIT"
+keywords = ["json-schema", "validation", "driftsys"]
+homepage = "https://driftsys.github.io/schemas"
+bugs = "https://github.com/driftsys/schemas/issues"
+repository = "https://github.com/driftsys/schemas"

@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dprint.dprint",
+    "DavidAnson.vscode-markdownlint",
+    "tamasfe.even-better-toml",
+    "editorconfig.editorconfig"
+  ]
+}
