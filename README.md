@@ -6,9 +6,9 @@ validation.
 
 ## Schemas
 
-| Schema              | URL                                                  | Describes                                                         |
-| ------------------- | ---------------------------------------------------- | ----------------------------------------------------------------- |
-| [project](project/) | `https://driftsys.github.io/schemas/project/v1.json` | Project manifest (`project.yaml`, `project.toml`, `project.json`) |
+| Schema              | URL                                                  | Describes                                         |
+| ------------------- | ---------------------------------------------------- | ------------------------------------------------- |
+| [project](project/) | `https://driftsys.github.io/schemas/project/v1.json` | Project manifest (`project.toml`, `project.json`) |
 
 ## Usage
 
@@ -70,11 +70,13 @@ place.
 
 ## Adding a Schema
 
-Each schema lives in its own directory with a `README.md` explaining the fields
-and a `v<N>.json` file containing the JSON Schema.
+Each schema lives in its own directory with a `README.md` explaining the fields,
+a `v<N>.json` file containing the JSON Schema, and a `tests/` folder with
+validation fixtures.
 
-```
+```text
 <schema-name>/
 ├── README.md       ← field documentation, examples, design decisions
-└── v1.json         ← JSON Schema
+├── v1.json         ← JSON Schema
+└── tests/          ← bash_unit tests and JSON fixtures
 ```

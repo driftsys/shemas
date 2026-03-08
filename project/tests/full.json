@@ -1,0 +1,22 @@
+{
+  "name": "com.company.dash",
+  "description": "Cross-platform SDK for the Dash service",
+  "category": ["library", "binary"],
+  "version": "1.4.2",
+  "license": "Apache-2.0",
+  "keywords": ["sdk", "cross-platform", "dash"],
+  "authors": ["Core Platform Team <core-platform@company.com>"],
+  "homepage": "https://company.gitlab.io/dash",
+  "bugs": "https://jira.company.com/browse/DASH",
+  "repository": "https://gitlab.company.com/platform/dash-source",
+  "upstream": "https://github.com/nicegui/nicegui#develop",
+  "metadata": {
+    "department": "platform-engineering",
+    "cost-center": "CC-4200"
+  },
+  "config": {
+    "sonar": {
+      "project-key": "dash-platform"
+    }
+  }
+}

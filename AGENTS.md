@@ -9,8 +9,8 @@ A collection of JSON Schemas for the Driftsys project. Schemas are published to
 GitHub Pages at `https://driftsys.github.io/schemas/` and referenced from
 project files for editor autocompletion and validation.
 
-There is no build system, no test suite, and no dependencies. The repo contains
-only JSON Schema files and documentation.
+There is no build system and no runtime dependencies. Schemas are validated with
+bash_unit tests that use ajv-cli.
 
 ## Repository Layout
 
@@ -19,7 +19,11 @@ Each schema lives in its own directory:
 ```text
 <schema-name>/
 ├── README.md       ← field documentation, examples, design decisions
-└── v<N>.json       ← JSON Schema (draft-07)
+├── v<N>.json       ← JSON Schema (draft-07)
+└── tests/
+    ├── test_v<N>.sh    ← bash_unit tests
+    ├── minimal.json    ← valid/invalid JSON fixtures
+    └── ...
 ```
 
 Currently the only schema is `project/v1.json` — a minimal, flat project
@@ -45,12 +49,13 @@ manifest.
 All commands use [just](https://github.com/casey/just):
 
 - `just fmt` — format all files with dprint
-- `just check` — check formatting without writing
+- `just check` — run all checks (test + lint)
+- `just test` — run bash_unit tests (schema compilation + valid/invalid fixtures
+  via ajv-cli)
 - `just lint` — run markdownlint and dprint check
-- `just test` — validate schemas against their meta-schema (ajv-cli)
-- `just publish` — copy all schema files (and only schema files) to `public/`
+- `just build` — copy all schema files (and only schema files) to `public/`
 
-Always run `just test` and `just check` before pushing.
+Always run `just check` before pushing.
 
 ## Commit Messages
 
@@ -69,6 +74,17 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) format:
 directory structure. Only schema files end up in `public/` — no docs, config, or
 tooling files. The `public/` directory is gitignored. CI runs this script before
 deploying to GitHub Pages.
+
+## Testing
+
+Each schema directory has a `tests/` folder with:
+
+- JSON fixtures (`*.json`) — valid and invalid examples
+- A bash_unit test file (`test_v<N>.sh`) that runs ajv-cli against those
+  fixtures
+
+When adding or modifying a schema, add or update the corresponding test fixtures
+and bash_unit tests.
 
 ## Editing Schemas
 

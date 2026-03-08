@@ -16,8 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate schemas
-        run: npx -p ajv-cli -p ajv-formats ajv compile --spec=draft7 -c ajv-formats -s project/v1.json
+      - name: Install bash_unit
+        run: |
+          curl -sL https://raw.githubusercontent.com/pgrange/bash_unit/master/install.sh | bash
+          sudo mv bash_unit /usr/local/bin/
+
+      - name: Test schemas
+        run: bash_unit project/tests/test_*.sh
 
       - name: Install dprint
         run: curl -fsSL https://dprint.dev/install.sh | sh
