@@ -14,7 +14,8 @@ traceability metadata outside Markdown source files.
 - `entries`: object keyed by ULID
 - each entry stores at least `displayId`
 - optional provenance fields: `createdAt`, `createdBy`, `updatedAt`, `updatedBy`
-- optional external mappings under `external.<tool>` with `ref`, `direction`, and `syncedAt`
+- optional external mappings under `external.<tool>` with `ref`, `direction`,
+  and `syncedAt`
 
 ## Notes
 
