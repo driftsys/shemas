@@ -7,10 +7,6 @@
   "required": ["total", "coverage", "gaps"],
   "additionalProperties": false,
   "properties": {
-    "generated": {
-      "type": "string",
-      "format": "date-time"
-    },
     "total": {
       "type": "integer",
       "minimum": 0

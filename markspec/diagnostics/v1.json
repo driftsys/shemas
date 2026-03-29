@@ -7,10 +7,6 @@
   "required": ["count", "bySeverity", "diagnostics"],
   "additionalProperties": false,
   "properties": {
-    "generated": {
-      "type": "string",
-      "format": "date-time"
-    },
     "count": {
       "type": "integer",
       "minimum": 0

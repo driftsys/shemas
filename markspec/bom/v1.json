@@ -7,10 +7,6 @@
   "required": ["project", "version", "totalComponents", "components"],
   "additionalProperties": false,
   "properties": {
-    "generated": {
-      "type": "string",
-      "format": "date-time"
-    },
     "project": {
       "type": "string"
     },

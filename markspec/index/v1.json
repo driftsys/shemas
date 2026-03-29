@@ -8,10 +8,6 @@
   "additionalProperties": false,
   "properties": {
     "scope": { "type": "string" },
-    "generated": {
-      "type": "string",
-      "format": "date-time"
-    },
     "count": {
       "type": "integer",
       "minimum": 0

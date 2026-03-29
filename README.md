@@ -20,7 +20,7 @@ agents.
 | Contract               | Description                              |
 | ---------------------- | ---------------------------------------- |
 | [project/](project/)   | Minimal flat project manifest            |
-| [markspec/](markspec/) | MarkSpec site API artifacts (13 schemas) |
+| [markspec/](markspec/) | MarkSpec site API artifacts (12 schemas) |
 
 ## Schema Index
 
@@ -30,15 +30,14 @@ agents.
 | [markspec/lock](markspec/lock/README.md)                               | [v1](markspec/lock/v1.json)                | Frozen sidecar metadata (`.markspec.lock`) |
 | [markspec/link-target](markspec/link-target/README.md)                 | [v1](markspec/link-target/v1.json)         | Shared resolved-link target object         |
 | [markspec/entry](markspec/entry/README.md)                             | [v1](markspec/entry/v1.json)               | Typed entry detail payload                 |
+| [markspec/component](markspec/component/README.md)                     | [v1](markspec/component/v1.json)           | BOM component detail payload               |
 | [markspec/reference](markspec/reference/README.md)                     | [v1](markspec/reference/v1.json)           | Reference entry payload                    |
 | [markspec/index](markspec/index/README.md)                             | [v1](markspec/index/v1.json)               | Entry listing payload                      |
+| [markspec/bom](markspec/bom/README.md)                                 | [v1](markspec/bom/v1.json)                 | BOM index (component summaries)            |
 | [markspec/search](markspec/search/README.md)                           | [v1](markspec/search/v1.json)              | Search records for client indexing         |
 | [markspec/traceability-matrix](markspec/traceability-matrix/README.md) | [v1](markspec/traceability-matrix/v1.json) | Full traceability matrix rows              |
 | [markspec/traceability-graph](markspec/traceability-graph/README.md)   | [v1](markspec/traceability-graph/v1.json)  | Graph nodes and edges                      |
 | [markspec/coverage](markspec/coverage/README.md)                       | [v1](markspec/coverage/v1.json)            | Coverage summary and gaps                  |
-| [markspec/bom](markspec/bom/README.md)                                 | [v1](markspec/bom/v1.json)                 | BOM index (component summaries)            |
-| [markspec/component](markspec/component/README.md)                     | [v1](markspec/component/v1.json)           | BOM component detail payload               |
-| [markspec/deps](markspec/deps/README.md)                               | [v1](markspec/deps/v1.json)                | Cross-project dependency payload           |
 | [markspec/diagnostics](markspec/diagnostics/README.md)                 | [v1](markspec/diagnostics/v1.json)         | Validation and build diagnostics           |
 
 ## Usage

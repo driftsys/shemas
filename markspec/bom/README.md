@@ -19,18 +19,17 @@ structure. For full component detail, fetch the individual component JSON using
 
 ## Properties
 
-| Path                     | Type               | Required | Description                                           |
-| ------------------------ | ------------------ | -------- | ----------------------------------------------------- |
-| `project`                | string             | yes      | Canonical reverse-DNS project ID                      |
-| `version`                | string             | yes      | Project version string                                |
-| `totalComponents`        | integer            | yes      | Total number of CMP entries                           |
-| `components[]`           | object[]           | yes      | Flat list of component summaries                      |
-| `components[].displayId` | string             | yes      | Human-readable display ID                             |
-| `components[].title`     | string             | yes      | Component title                                       |
-| `components[].nodeType`  | string             | yes      | `component`, `part`, `module`, `service`, or `device` |
-| `components[].partOf`    | string \| null     |          | Parent component display ID. Null for roots           |
-| `components[].url`       | string             | yes      | Relative URL to this component's page                 |
-| `generated`              | string (date-time) |          | Timestamp of BOM generation                           |
+| Path                     | Type           | Required | Description                                           |
+| ------------------------ | -------------- | -------- | ----------------------------------------------------- |
+| `project`                | string         | yes      | Canonical reverse-DNS project ID                      |
+| `version`                | string         | yes      | Project version string                                |
+| `totalComponents`        | integer        | yes      | Total number of CMP entries                           |
+| `components[]`           | object[]       | yes      | Flat list of component summaries                      |
+| `components[].displayId` | string         | yes      | Human-readable display ID                             |
+| `components[].title`     | string         | yes      | Component title                                       |
+| `components[].nodeType`  | string         | yes      | `component`, `part`, `module`, `service`, or `device` |
+| `components[].partOf`    | string \| null |          | Parent component display ID. Null for roots           |
+| `components[].url`       | string         | yes      | Relative URL to this component's page                 |
 
 ## Common pitfall
 

@@ -17,19 +17,18 @@ unverified entries) for dashboards and actionable remediation output.
 
 ## Properties
 
-| Path                    | Type               | Required | Description                             |
-| ----------------------- | ------------------ | -------- | --------------------------------------- |
-| `total`                 | integer            | yes      | Total number of entries analyzed        |
-| `coverage`              | object             | yes      | Aggregate coverage counters             |
-| `coverage.requirements` | number             |          | Requirements coverage ratio             |
-| `coverage.tests`        | number             |          | Tests coverage ratio                    |
-| `coverage.traceability` | number             |          | Traceability coverage ratio             |
-| `gaps[]`                | object[]           | yes      | Entries with traceability gaps          |
-| `gaps[].displayId`      | string             | yes      | Human-readable display ID               |
-| `gaps[].title`          | string             | yes      | Entry title                             |
-| `gaps[].missing`        | string[]           | yes      | Missing link kinds                      |
-| `gaps[].url`            | string             |          | Relative URL to the entry's detail page |
-| `generated`             | string (date-time) |          | Timestamp of coverage computation       |
+| Path                    | Type     | Required | Description                             |
+| ----------------------- | -------- | -------- | --------------------------------------- |
+| `total`                 | integer  | yes      | Total number of entries analyzed        |
+| `coverage`              | object   | yes      | Aggregate coverage counters             |
+| `coverage.requirements` | number   |          | Requirements coverage ratio             |
+| `coverage.tests`        | number   |          | Tests coverage ratio                    |
+| `coverage.traceability` | number   |          | Traceability coverage ratio             |
+| `gaps[]`                | object[] | yes      | Entries with traceability gaps          |
+| `gaps[].displayId`      | string   | yes      | Human-readable display ID               |
+| `gaps[].title`          | string   | yes      | Entry title                             |
+| `gaps[].missing`        | string[] | yes      | Missing link kinds                      |
+| `gaps[].url`            | string   |          | Relative URL to the entry's detail page |
 
 ## Common pitfall
 

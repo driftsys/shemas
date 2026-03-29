@@ -19,25 +19,24 @@ where resolved link targets eliminate the need for additional ID resolution.
 
 ## Properties
 
-| Path                   | Type               | Required | Description                             |
-| ---------------------- | ------------------ | -------- | --------------------------------------- |
-| `count`                | integer            | yes      | Total number of rows in the matrix      |
-| `rows[]`               | object[]           | yes      | One row per entry                       |
-| `rows[].displayId`     | string             | yes      | Human-readable display ID               |
-| `rows[].title`         | string             | yes      | Entry title                             |
-| `rows[].entryType`     | string             | yes      | Entry type abbreviation                 |
-| `rows[].satisfies`     | linkTarget[]       |          | Entries this entry satisfies            |
-| `rows[].satisfiedBy`   | linkTarget[]       |          | Entries that satisfy this entry         |
-| `rows[].derivedFrom`   | linkTarget         |          | Entry this is derived from (singular)   |
-| `rows[].derivedTo`     | linkTarget[]       |          | Entries derived from this entry         |
-| `rows[].allocates`     | linkTarget[]       |          | Components this entry is allocated to   |
-| `rows[].allocatedBy`   | linkTarget[]       |          | Entries allocated to this component     |
-| `rows[].verifies`      | linkTarget[]       |          | Entries this entry verifies             |
-| `rows[].verifiedBy`    | linkTarget[]       |          | Entries that verify this entry          |
-| `rows[].implements`    | linkTarget[]       |          | Entries this entry implements           |
-| `rows[].implementedBy` | linkTarget[]       |          | Entries that implement this entry       |
-| `rows[].url`           | string             |          | Relative URL to the entry's detail page |
-| `generated`            | string (date-time) |          | Timestamp of matrix generation          |
+| Path                   | Type         | Required | Description                             |
+| ---------------------- | ------------ | -------- | --------------------------------------- |
+| `count`                | integer      | yes      | Total number of rows in the matrix      |
+| `rows[]`               | object[]     | yes      | One row per entry                       |
+| `rows[].displayId`     | string       | yes      | Human-readable display ID               |
+| `rows[].title`         | string       | yes      | Entry title                             |
+| `rows[].entryType`     | string       | yes      | Entry type abbreviation                 |
+| `rows[].satisfies`     | linkTarget[] |          | Entries this entry satisfies            |
+| `rows[].satisfiedBy`   | linkTarget[] |          | Entries that satisfy this entry         |
+| `rows[].derivedFrom`   | linkTarget   |          | Entry this is derived from (singular)   |
+| `rows[].derivedTo`     | linkTarget[] |          | Entries derived from this entry         |
+| `rows[].allocates`     | linkTarget[] |          | Components this entry is allocated to   |
+| `rows[].allocatedBy`   | linkTarget[] |          | Entries allocated to this component     |
+| `rows[].verifies`      | linkTarget[] |          | Entries this entry verifies             |
+| `rows[].verifiedBy`    | linkTarget[] |          | Entries that verify this entry          |
+| `rows[].implements`    | linkTarget[] |          | Entries this entry implements           |
+| `rows[].implementedBy` | linkTarget[] |          | Entries that implement this entry       |
+| `rows[].url`           | string       |          | Relative URL to the entry's detail page |
 
 ## Common pitfall
 
