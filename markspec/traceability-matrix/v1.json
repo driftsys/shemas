@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/markspec/traceability-matrix/v1.json",
+  "title": "MarkSpec Traceability Matrix",
+  "description": "Full traceability matrix with all link directions per entry.",
+  "type": "object",
+  "required": ["count", "rows"],
+  "additionalProperties": false,
+  "properties": {
+    "generated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["displayId", "title", "entryType"],
+        "additionalProperties": false,
+        "properties": {
+          "displayId": { "type": "string" },
+          "title": { "type": "string" },
+          "entryType": { "type": "string" },
+          "satisfies": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "satisfiedBy": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "derivedFrom": {
+            "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json"
+          },
+          "derivedTo": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "allocates": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "allocatedBy": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "verifies": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "verifiedBy": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "implements": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "implementedBy": {
+            "type": "array",
+            "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+          },
+          "url": { "type": "string" }
+        }
+      }
+    }
+  }
+}

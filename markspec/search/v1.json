@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/markspec/search/v1.json",
+  "title": "MarkSpec Search Index",
+  "description": "Flat array of entry records optimized for search indexing.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["displayId", "title", "body", "entryType", "url"],
+    "additionalProperties": false,
+    "properties": {
+      "displayId": { "type": "string" },
+      "title": { "type": "string" },
+      "body": { "type": "string" },
+      "entryType": { "type": "string" },
+      "labels": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "url": { "type": "string" }
+    }
+  }
+}

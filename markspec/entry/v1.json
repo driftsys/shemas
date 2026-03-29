@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/markspec/entry/v1.json",
+  "title": "MarkSpec Entry",
+  "description": "A single typed entry with resolved traceability links.",
+  "type": "object",
+  "required": ["displayId", "title", "entryType", "source", "location"],
+  "additionalProperties": false,
+  "properties": {
+    "displayId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,}_[A-Z]{2,12}_[0-9]{3,4}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "entryType": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["markdown", "doc-comment"]
+    },
+    "location": {
+      "type": "object",
+      "required": ["file", "line"],
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedBy": {
+      "type": "string"
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "satisfies": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "satisfiedBy": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "derivedFrom": {
+          "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json"
+        },
+        "derivedTo": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "allocates": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "allocatedBy": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "verifies": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "verifiedBy": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "implements": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        },
+        "implementedBy": {
+          "type": "array",
+          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+        }
+      }
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/markspec/index/v1.json",
+  "title": "MarkSpec Index",
+  "description": "Index of entries, scoped globally, by type, or by reference category.",
+  "type": "object",
+  "required": ["scope", "count", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "scope": { "type": "string" },
+    "generated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "project": {
+      "type": "object",
+      "required": ["name", "domain", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "domain": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["displayId", "title", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "displayId": { "type": "string" },
+          "title": { "type": "string" },
+          "entryType": { "type": "string" },
+          "url": { "type": "string" },
+          "labels": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
