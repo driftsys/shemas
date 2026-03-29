@@ -25,5 +25,5 @@ traceability metadata that should not pollute Markdown sources:
 
 See:
 
-- `markspec/lock/v1.json`
-- `markspec/lock/README.md`
+- [lock/v1.json](lock/v1.json)
+- [lock/README.md](lock/README.md)
