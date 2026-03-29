@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://driftsys.github.io/schemas/markspec/bom/v1.json",
-  "title": "MarkSpec BOM",
-  "description": "Product architecture as a tree of typed components.",
+  "title": "MarkSpec BOM Index",
+  "description": "BOM index listing component summaries for tree assembly.",
   "type": "object",
-  "required": ["project", "version", "totalComponents", "roots"],
+  "required": ["project", "version", "totalComponents", "components"],
   "additionalProperties": false,
   "properties": {
     "generated": {
@@ -21,53 +21,24 @@
       "type": "integer",
       "minimum": 0
     },
-    "roots": {
+    "components": {
       "type": "array",
-      "items": { "$ref": "#/definitions/bomNode" }
-    }
-  },
-  "definitions": {
-    "bomNode": {
-      "type": "object",
-      "required": ["displayId", "title", "nodeType", "children"],
-      "additionalProperties": false,
-      "properties": {
-        "displayId": { "type": "string" },
-        "title": { "type": "string" },
-        "nodeType": {
-          "type": "string",
-          "enum": ["component", "part", "module", "service", "device"]
-        },
-        "deployment": {
-          "type": ["string", "null"]
-        },
-        "deployedOn": {
-          "oneOf": [
-            { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" },
-            { "type": "null" }
-          ]
-        },
-        "allocatedReqs": {
-          "type": "array",
-          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
-        },
-        "verifiedBy": {
-          "type": "array",
-          "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
-        },
-        "coverage": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "allocated": { "type": "integer", "minimum": 0 },
-            "verified": { "type": "integer", "minimum": 0 }
-          }
-        },
-        "children": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/bomNode" }
-        },
-        "url": { "type": "string" }
+      "items": {
+        "type": "object",
+        "required": ["displayId", "title", "nodeType", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "displayId": { "type": "string" },
+          "title": { "type": "string" },
+          "nodeType": {
+            "type": "string",
+            "enum": ["component", "part", "module", "service", "device"]
+          },
+          "partOf": {
+            "type": ["string", "null"]
+          },
+          "url": { "type": "string" }
+        }
       }
     }
   }

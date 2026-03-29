@@ -5,8 +5,8 @@ the matching schema before processing.
 
 ## Discovery Protocol
 
-1. Determine payload kind (entry, reference, index, search, matrix, graph,
-   coverage, bom, deps, diagnostics, lock).
+1. Determine payload kind (entry, reference, component, index, search, matrix,
+   graph, coverage, bom, deps, diagnostics, lock).
 2. Select the matching `v1.json` from the schema index below.
 3. Validate payload against the schema before parsing.
 4. Parse required fields first, optional fields second.
@@ -15,20 +15,21 @@ the matching schema before processing.
 
 ## Schema Index
 
-| Schema path                                                | What it describes                          | Stable key                |
-| ---------------------------------------------------------- | ------------------------------------------ | ------------------------- |
-| [lock/v1.json](lock/v1.json)                               | Frozen sidecar metadata (`.markspec.lock`) | ULID map key              |
-| [link-target/v1.json](link-target/v1.json)                 | Shared resolved-link target object         | `displayId`               |
-| [entry/v1.json](entry/v1.json)                             | Typed entry detail payload                 | `id` (ULID) / `displayId` |
-| [reference/v1.json](reference/v1.json)                     | Reference entry payload                    | `id` (ULID) / `displayId` |
-| [index/v1.json](index/v1.json)                             | Entry listing payload                      | `entries[].displayId`     |
-| [search/v1.json](search/v1.json)                           | Search records for client indexing         | `displayId`               |
-| [traceability-matrix/v1.json](traceability-matrix/v1.json) | Full traceability matrix rows              | `rows[].displayId`        |
-| [traceability-graph/v1.json](traceability-graph/v1.json)   | Graph nodes and edges                      | `nodes[].id`              |
-| [coverage/v1.json](coverage/v1.json)                       | Coverage summary and gaps                  | `gaps[].displayId`        |
-| [bom/v1.json](bom/v1.json)                                 | Architecture/BOM tree                      | `bomNode.displayId`       |
-| [deps/v1.json](deps/v1.json)                               | Cross-project dependency payload           | `refs[].from/to`          |
-| [diagnostics/v1.json](diagnostics/v1.json)                 | Validation and build diagnostics           | `code + location`         |
+| Contract                                                      | JSON Schema                       | What it describes                          | Stable key                |
+| ------------------------------------------------------------- | --------------------------------- | ------------------------------------------ | ------------------------- |
+| [markspec/lock](lock/README.md)                               | [v1](lock/v1.json)                | Frozen sidecar metadata (`.markspec.lock`) | ULID map key              |
+| [markspec/link-target](link-target/README.md)                 | [v1](link-target/v1.json)         | Shared resolved-link target object         | `displayId`               |
+| [markspec/entry](entry/README.md)                             | [v1](entry/v1.json)               | Typed entry detail payload                 | `id` (ULID) / `displayId` |
+| [markspec/reference](reference/README.md)                     | [v1](reference/v1.json)           | Reference entry payload                    | `id` (ULID) / `displayId` |
+| [markspec/index](index/README.md)                             | [v1](index/v1.json)               | Entry listing payload                      | `entries[].displayId`     |
+| [markspec/search](search/README.md)                           | [v1](search/v1.json)              | Search records for client indexing         | `displayId`               |
+| [markspec/traceability-matrix](traceability-matrix/README.md) | [v1](traceability-matrix/v1.json) | Full traceability matrix rows              | `rows[].displayId`        |
+| [markspec/traceability-graph](traceability-graph/README.md)   | [v1](traceability-graph/v1.json)  | Graph nodes and edges                      | `nodes[].id`              |
+| [markspec/coverage](coverage/README.md)                       | [v1](coverage/v1.json)            | Coverage summary and gaps                  | `gaps[].displayId`        |
+| [markspec/bom](bom/README.md)                                 | [v1](bom/v1.json)                 | BOM index (component summaries)            | `components[].displayId`  |
+| [markspec/component](component/README.md)                     | [v1](component/v1.json)           | BOM component detail payload               | `id` (ULID) / `displayId` |
+| [markspec/deps](deps/README.md)                               | [v1](deps/v1.json)                | Cross-project dependency payload           | `refs[].from/to`          |
+| [markspec/diagnostics](diagnostics/README.md)                 | [v1](diagnostics/v1.json)         | Validation and build diagnostics           | `code + location`         |
 
 ## Validation Contract
 

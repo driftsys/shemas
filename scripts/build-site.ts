@@ -266,6 +266,8 @@ function rewriteHref(href: string, linkText: string): string {
   if (linkText.includes("README.md")) return href;
   if (href === "README.md") return "./";
   if (href.endsWith("/README.md")) return href.slice(0, -"README.md".length);
+  // Rewrite directory links to explicit index.html
+  if (href.endsWith("/") && !href.startsWith("http")) return href + "index.html";
   return href;
 }
 
@@ -365,8 +367,34 @@ async function main(): Promise<void> {
 
   let filesWritten = 0;
 
+  // Discover schema subdirectory contract pages (markspec/*, project if it had subdirs)
+  const schemaSubPages: ContractPage[] = [];
+  for (const domain of ["markspec"]) {
+    const domainDir = `${root}/${domain}`;
+    for await (const entry of Deno.readDir(domainDir)) {
+      if (!entry.isDirectory) continue;
+      const readmePath = `${domainDir}/${entry.name}/README.md`;
+      try {
+        await Deno.stat(readmePath);
+        schemaSubPages.push({
+          srcReadme: `${domain}/${entry.name}/README.md`,
+          outDir: `${domain}/${entry.name}`,
+          title: `${domain}/${entry.name}`,
+          depth: 2,
+          breadcrumbs: [
+            { label: "Schemas", href: "../../" },
+            { label: domain, href: "../" },
+            { label: entry.name },
+          ],
+        });
+      } catch { /* no README.md, skip */ }
+    }
+  }
+
+  const allPages = [...CONTRACT_PAGES, ...schemaSubPages];
+
   // --- Contract pages (HTML + index.md) ---
-  for (const page of CONTRACT_PAGES) {
+  for (const page of allPages) {
     const src = `${root}/${page.srcReadme}`;
     const md = await Deno.readTextFile(src);
     const html = renderMarkdown(md);
@@ -416,7 +444,7 @@ async function main(): Promise<void> {
 
   // Summary
   console.log(`\nSchemas site build complete`);
-  console.log(`  Contract pages: ${CONTRACT_PAGES.length}`);
+  console.log(`  Contract pages: ${allPages.length}`);
   console.log(`  Schema files: ${schemaFiles.length}`);
   console.log(`  Files written: ${filesWritten}`);
   console.log(`  Output: ${outDir}/`);

@@ -2,23 +2,31 @@
 
 Flat record array used for client-side search indexing.
 
-## Agent quick guide
+**Schema URL:** `https://driftsys.github.io/schemas/markspec/search/v1.json`
+
+Flat array optimized for client-side search with MiniSearch. Each element
+contains the fields needed for indexing and the stored fields returned in search
+results. Produced at `api/search.json` and lazy-loaded on first keystroke in the
+site search UI.
+
+## Quick guide
 
 - Treat each item as self-contained search document.
 - `body` is required and intended for search, not exact source reconstruction.
 - Use `url` as the navigation target.
 
-## Record required fields
+## Properties
 
-- `displayId`
-- `title`
-- `body`
-- `entryType`
-- `url`
+Root type is `array`. Each element:
 
-## Optional fields
-
-- `labels`
+| Path           | Type     | Required | Description                      |
+| -------------- | -------- | -------- | -------------------------------- |
+| `[].displayId` | string   | yes      | Human-readable display ID        |
+| `[].title`     | string   | yes      | Entry title                      |
+| `[].body`      | string   | yes      | Truncated body text for indexing |
+| `[].entryType` | string   | yes      | Entry type abbreviation          |
+| `[].url`       | string   | yes      | Relative URL to the entry's page |
+| `[].labels`    | string[] |          | Labels attached to this entry    |
 
 ## Common pitfall
 

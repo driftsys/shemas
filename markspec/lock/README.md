@@ -2,32 +2,35 @@
 
 Schema for `.markspec.lock`, a machine-managed sidecar for frozen metadata.
 
-## Agent quick guide
+**Schema URL:** `https://driftsys.github.io/schemas/markspec/lock/v1.json`
+
+The lock file (`.markspec.lock`) is a machine-managed sidecar that stores frozen
+metadata for every entry and reference in the project. Each record is keyed by
+ULID and contains stamped identity, attributes, and provenance fields that
+survive across edits to the source markdown.
+
+## Quick guide
 
 - Use lock data as durable metadata, separate from markdown authoring text.
 - Join lock records to entries/references by ULID map key.
 - Treat missing optional provenance/sync fields as unknown, not invalid.
 
-## Required top-level field
+## Properties
 
-- `entries`: object map keyed by ULID.
-
-## Optional top-level field
-
-- `$schema`: schema URI.
-
-## Entry metadata fields
-
-- `displayId` (required): current display ID for the ULID.
-- `createdAt`, `createdBy` (optional): creation provenance.
-- `updatedAt`, `updatedBy` (optional): latest update provenance.
-- `external` (optional): per-tool sync metadata map.
-
-## `external.<tool>` fields
-
-- `ref` (required): external system identifier.
-- `direction` (required): `import`, `export`, or `bidirectional`.
-- `syncedAt` (optional): last sync timestamp.
+| Path                                       | Type               | Required | Description                             |
+| ------------------------------------------ | ------------------ | -------- | --------------------------------------- |
+| `entries`                                  | object             | yes      | Entry metadata indexed by ULID          |
+| `entries.<ULID>`                           | object             | yes      | Metadata for a single entry             |
+| `entries.<ULID>.displayId`                 | string             | yes      | Current display ID for the ULID         |
+| `entries.<ULID>.createdAt`                 | string (date-time) |          | Creation timestamp                      |
+| `entries.<ULID>.createdBy`                 | string             |          | Creation author                         |
+| `entries.<ULID>.updatedAt`                 | string (date-time) |          | Latest update timestamp                 |
+| `entries.<ULID>.updatedBy`                 | string             |          | Latest update author                    |
+| `entries.<ULID>.external`                  | object             |          | External tool sync metadata by tool key |
+| `entries.<ULID>.external.<tool>.ref`       | string             | yes      | External system identifier              |
+| `entries.<ULID>.external.<tool>.direction` | string             | yes      | `import`, `export`, or `bidirectional`  |
+| `entries.<ULID>.external.<tool>.syncedAt`  | string (date-time) |          | Last sync timestamp                     |
+| `$schema`                                  | string (uri)       |          | Schema URI                              |
 
 ## Common pitfall
 

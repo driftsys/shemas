@@ -30,6 +30,7 @@ build:
 dev:
     #!/usr/bin/env bash
     set -m
+    lsof -ti:8000 | xargs kill -9 2>/dev/null || true
     trap 'kill %1 2>/dev/null || true; wait' EXIT INT TERM
     # Initial build
     just build
@@ -44,4 +45,4 @@ dev:
     # Give server a moment to start before opening
     (sleep 1 && open http://localhost:8000) &
     # Serve _site directory
-    cd "$PWD/_site" && deno run --allow-net jsr:@std/http/file-server --port 8000
+    cd "$PWD/_site" && deno run --allow-net --allow-read jsr:@std/http/file-server --port 8000

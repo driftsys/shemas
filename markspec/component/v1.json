@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/markspec/component/v1.json",
+  "title": "MarkSpec Component",
+  "description": "A single BOM component with deployment, allocation, and verification detail.",
+  "type": "object",
+  "required": ["displayId", "title", "nodeType", "source", "location"],
+  "additionalProperties": false,
+  "properties": {
+    "displayId": {
+      "type": "string",
+      "pattern": "^CMP_[A-Z]{2,12}_[0-9]{3,4}$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "nodeType": {
+      "type": "string",
+      "enum": ["component", "part", "module", "service", "device"]
+    },
+    "partOf": {
+      "type": ["string", "null"]
+    },
+    "source": {
+      "type": "string",
+      "enum": ["markdown", "doc-comment"]
+    },
+    "location": {
+      "type": "object",
+      "required": ["file", "line"],
+      "additionalProperties": false,
+      "properties": {
+        "file": { "type": "string" },
+        "line": { "type": "integer", "minimum": 1 },
+        "column": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedBy": {
+      "type": "string"
+    },
+    "deployedOn": {
+      "oneOf": [
+        { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" },
+        { "type": "null" }
+      ]
+    },
+    "allocatedReqs": {
+      "type": "array",
+      "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+    },
+    "verifiedBy": {
+      "type": "array",
+      "items": { "$ref": "https://driftsys.github.io/schemas/markspec/link-target/v1.json" }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allocated": { "type": "integer", "minimum": 0 },
+        "verified": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

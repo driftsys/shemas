@@ -21,6 +21,11 @@ MD013:
   # Lines where the long segment is a URL inside a link are exempt.
   # Bare URLs are caught by MD034 instead.
 
+# ── Tables ────────────────────────────────────────────────────────────────
+# dprint manages table formatting; disable column style enforcement to
+# avoid conflicts between the two tools.
+MD060: false
+
 # ── Headings ──────────────────────────────────────────────────────────────
 MD001: true                         # heading levels increment by one
 MD003:

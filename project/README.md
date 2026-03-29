@@ -5,6 +5,12 @@ lives — nothing more. Validate payloads against this schema before processing.
 
 **Schema URL:** `https://driftsys.github.io/schemas/project/v1.json`
 
+Every project carries a `project.yaml` (or `.toml` / `.json`) that declares its
+canonical name, version, domain, and optional metadata like category and
+license. Tools read this manifest to identify the project, resolve dependencies,
+and configure build pipelines. The schema is intentionally small and flat — no
+nesting, no tool-specific fields.
+
 ## Discovery Protocol
 
 1. Detect a `project.yaml`, `project.toml`, or `project.json` file.
@@ -29,40 +35,27 @@ Validate early so downstream logic stays predictable.
 3. Unknown properties must be rejected (schema is closed).
 4. If schema fetch fails, return a schema-unavailable error.
 
-## Fields
+## Properties
 
-### `name` (required)
+| Path          | Type               | Required | Description                                              |
+| ------------- | ------------------ | -------- | -------------------------------------------------------- |
+| `name`        | string             | yes      | Reverse-domain project identifier (`^[a-z][a-z0-9.-]*$`) |
+| `version`     | string             | yes      | Canonical version — single source of truth               |
+| `category`    | string \| string[] |          | Project classification (see values below)                |
+| `description` | string             |          | One-line summary                                         |
+| `license`     | string             |          | SPDX license expression                                  |
+| `keywords`    | string[]           |          | Discovery tags                                           |
+| `authors`     | string[]           |          | Authors in `Name <email>` format                         |
+| `homepage`    | string (uri)       |          | Project website or documentation portal URL              |
+| `bugs`        | string (uri)       |          | Issue tracker URL                                        |
+| `repository`  | string (uri)       |          | Source repository URL                                    |
+| `upstream`    | string             |          | Upstream repo URL for forks (`#branch` suffix)           |
+| `metadata`    | object             |          | Freeform key-value block for org-specific info           |
+| `config`      | object             |          | Freeform key-value block for tooling config              |
 
-Reverse-domain project identifier. Globally unique, used as the canonical name
-across all ecosystems.
+### Category values
 
-```yaml
-name: com.company.dash
-```
-
-Must match `^[a-z][a-z0-9.-]*$`. Tooling derives ecosystem-specific names from
-this value — for example, `@company/dash` for npm or `company-dash` for Cargo.
-
-### `version` (required)
-
-Canonical version. Single source of truth — all ecosystem version files
-(`Cargo.toml`, `package.json`, `build.gradle.kts`) are derived from this value.
-
-```yaml
-version: 1.4.2
-```
-
-### `category`
-
-Project classification. Accepts a single value or a list.
-
-```yaml
-category: library
-```
-
-Values:
-
-| Category        | Description                                                |
+| Value           | Description                                                |
 | --------------- | ---------------------------------------------------------- |
 | `manifest`      | Integration root — assembles components, ships to customer |
 | `specification` | Requirements, features, safety concepts                    |
@@ -73,83 +66,6 @@ Values:
 | `binary`        | Precompiled executables, firmware, vendor tools            |
 | `distribution`  | Release artifacts, install packs                           |
 | `configuration` | Graphic assets, system config, calibration data            |
-
-### `description`
-
-One-line summary of the project.
-
-```yaml
-description: Cross-platform SDK for the Dash service
-```
-
-### `license`
-
-SPDX license expression.
-
-```yaml
-license: Apache-2.0
-```
-
-### `keywords`
-
-Discovery tags.
-
-```yaml
-keywords:
-  - sdk
-  - cross-platform
-```
-
-### `authors`
-
-Project authors in `Name <email>` format.
-
-```yaml
-authors:
-  - Core Platform Team <core-platform@company.com>
-```
-
-### `homepage`
-
-Project website or documentation portal URL.
-
-### `bugs`
-
-Issue tracker URL.
-
-### `repository`
-
-Source repository URL.
-
-### `upstream`
-
-Upstream repository for forks. Append `#branch` to track a specific branch.
-
-```yaml
-upstream: https://github.com/nicegui/nicegui#develop
-```
-
-### `metadata`
-
-Freeform key-value block for org-specific information. The standard never reads
-or validates contents.
-
-```yaml
-metadata:
-  department: platform-engineering
-  cost-center: CC-4200
-```
-
-### `config`
-
-Freeform key-value block for tooling configuration. Tools namespace themselves
-as keys.
-
-```yaml
-config:
-  sonar:
-    project-key: dash-platform
-```
 
 ## Failure Modes
 

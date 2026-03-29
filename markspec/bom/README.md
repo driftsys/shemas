@@ -1,38 +1,38 @@
 # `markspec/bom/v1.json`
 
-Architecture/BOM tree payload for component structure and allocation context.
+BOM index listing component summaries for tree assembly.
 
-## Agent quick guide
+**Schema URL:** `https://driftsys.github.io/schemas/markspec/bom/v1.json`
 
-- Traverse from `roots[]` recursively through `children[]`.
-- Use `displayId` as node identity inside one BOM payload.
-- Combine with link-target references for allocation/verification context.
+Lists all BOM components with enough metadata to assemble the product
+architecture tree client-side. Produced at `api/entries/component/index.json`.
+Components use the `CMP` namespace; `partOf` encodes the `Part-of` tree
+structure. For full component detail, fetch the individual component JSON using
+`markspec/component/v1.json`.
 
-## Required top-level fields
+## Quick guide
 
-- `project`
-- `version`
-- `totalComponents`
-- `roots`
+- Build the tree client-side from `partOf` references.
+- Root components have `partOf: null`.
+- Use `url` to link to component detail pages.
+- Fetch `api/entries/component/{display-id}.json` for full component data.
 
-## Optional top-level fields
+## Properties
 
-- `generated`
-
-## `bomNode` required fields
-
-- `displayId`
-- `title`
-- `nodeType`
-- `children`
-
-## `bomNode` optional fields
-
-- `deployment`, `deployedOn`
-- `allocatedReqs`, `verifiedBy`
-- `coverage`
-- `url`
+| Path                     | Type               | Required | Description                                           |
+| ------------------------ | ------------------ | -------- | ----------------------------------------------------- |
+| `project`                | string             | yes      | Canonical reverse-DNS project ID                      |
+| `version`                | string             | yes      | Project version string                                |
+| `totalComponents`        | integer            | yes      | Total number of CMP entries                           |
+| `components[]`           | object[]           | yes      | Flat list of component summaries                      |
+| `components[].displayId` | string             | yes      | Human-readable display ID                             |
+| `components[].title`     | string             | yes      | Component title                                       |
+| `components[].nodeType`  | string             | yes      | `component`, `part`, `module`, `service`, or `device` |
+| `components[].partOf`    | string \| null     |          | Parent component display ID. Null for roots           |
+| `components[].url`       | string             | yes      | Relative URL to this component's page                 |
+| `generated`              | string (date-time) |          | Timestamp of BOM generation                           |
 
 ## Common pitfall
 
-Do not treat `children` as optional; empty leaf arrays are still required.
+This is a summary index — allocation, deployment, and coverage data live in the
+individual component detail files (`markspec/component/v1.json`).
