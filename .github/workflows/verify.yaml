@@ -37,7 +37,13 @@ jobs:
           done
 
           for f in $(find public -name 'v*.json'); do
-            url="${base}${f#pu            url="${base}${f#pu            url="${base}${f#pu            ul")
-            if [ "$status"   "2            if [ "$       echo "OK                       
-                                    $statu                                     f               e
+            url="${base}${f#public/}"
+            status=$(curl -sL -o /dev/null -w '%{http_code}' "$url")
+            if [ "$status" = "200" ]; then
+              echo "OK $url"
+            else
+              echo "FAIL $url (HTTP $status)"
+              fail=1
+            fi
+          done
           exit $fail
