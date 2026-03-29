@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://driftsys.github.io/schemas/markspec/coverage/v1.json",
+  "title": "MarkSpec Coverage",
+  "description": "Coverage statistics and gap analysis for the project.",
+  "type": "object",
+  "required": ["total", "coverage", "gaps"],
+  "additionalProperties": false,
+  "properties": {
+    "generated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "total": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requirements": { "type": "number" },
+        "tests": { "type": "number" },
+        "traceability": { "type": "number" }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["displayId", "title", "missing"],
+        "additionalProperties": false,
+        "properties": {
+          "displayId": { "type": "string" },
+          "title": { "type": "string" },
+          "missing": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "url": { "type": "string" }
+        }
+      }
+    }
+  }
+}

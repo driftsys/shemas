@@ -1,24 +1,35 @@
-# MarkSpec lock schema (`markspec/lock/v1.json`)
+# `markspec/lock/v1.json`
 
-This schema defines `.markspec.lock`, a machine-managed file that stores frozen
-traceability metadata outside Markdown source files.
+Schema for `.markspec.lock`, a machine-managed sidecar for frozen metadata.
 
-## Purpose
+## Agent quick guide
 
-- preserve provenance metadata even when git history is rewritten
-- keep author-facing Markdown concise
-- persist external tool synchronization references
+- Use lock data as durable metadata, separate from markdown authoring text.
+- Join lock records to entries/references by ULID map key.
+- Treat missing optional provenance/sync fields as unknown, not invalid.
 
-## Key structure
+## Required top-level field
 
-- `entries`: object keyed by ULID
-- each entry stores at least `displayId`
-- optional provenance fields: `createdAt`, `createdBy`, `updatedAt`, `updatedBy`
-- optional external mappings under `external.<tool>` with `ref`, `direction`,
-  and `syncedAt`
+- `entries`: object map keyed by ULID.
 
-## Notes
+## Optional top-level field
 
-- this schema is referenced by:
-  - `https://driftsys.github.io/schemas/markspec/lock/v1.json`
-- lock files are machine-managed and committed to VCS.
+- `$schema`: schema URI.
+
+## Entry metadata fields
+
+- `displayId` (required): current display ID for the ULID.
+- `createdAt`, `createdBy` (optional): creation provenance.
+- `updatedAt`, `updatedBy` (optional): latest update provenance.
+- `external` (optional): per-tool sync metadata map.
+
+## `external.<tool>` fields
+
+- `ref` (required): external system identifier.
+- `direction` (required): `import`, `export`, or `bidirectional`.
+- `syncedAt` (optional): last sync timestamp.
+
+## Common pitfall
+
+Do not assume all entries in markdown are already present in lock during partial
+workflows; validation should report drift explicitly.
